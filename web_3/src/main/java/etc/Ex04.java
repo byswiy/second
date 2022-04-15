@@ -69,6 +69,9 @@ public class Ex04 {
 				isJoin = true;
 			}
 			
+			// QLIntegrityConstraintViolationException 가 SQLException의 한 종류
+			// 부모 예외가 위에 있고 자식 예외가 밑에 있을 경우 부모 예외가 처리를 할 텐데 자식 예외가 필요없다는 컴파일 오류가 뜬다
+			// 그렇기 때문에 자식 예외를 부모 예외 보다 위에 둠으로써 예외를 발생시킬 수 있다
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch(SQLIntegrityConstraintViolationException e) {
