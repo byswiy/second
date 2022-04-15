@@ -3,85 +3,101 @@ package etc;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.Scanner;
 
 public class Ex04 {
+	
 
 	public static void main(String[] args) {
 		Scanner scanf = new Scanner(System.in);
 		
-		System.out.println("<< 뫄뫄뫄 프로그램 >>");
-		System.out.println("1. 회원가입");
-		System.out.println("2. 로그인");
-		System.out.print("메뉴 선택 -> ");
+		boolean isRunning = true;
 		
-		int menu = scanf.nextInt();
-		
-		switch(menu) {
-		case 1:
-			System.out.println("<< 회원가입 >>");
+		while(isRunning) {
+			System.out.println("<< 뫄뫄뫄 프로그램 >>");
+			System.out.println("1. 회원가입");
+			System.out.println("2. 로그인");
+			System.out.println("3. 프로그램 종료");
+			System.out.print("메뉴 선택 -> ");
 			
-			System.out.print("아이디 -> ");
-			String id = scanf.next();
+			int menu = scanf.nextInt();
 			
-			System.out.print("비밀번호 -> ");
-			String pw = scanf.next();
-			
-			System.out.print("이름 -> ");
-			String name = scanf.next();
-			
-			Connection conn = null;
-			Statement stmt = null;
-			
-			try {
-				Class.forName("org.mariadb.jdbc.Driver");
+			switch(menu) {
+			case 1:
+				System.out.println("<< 회원가입 >>");
 				
-				conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
-			
-				stmt = conn.createStatement();
+				System.out.print("아이디 -> ");
+				String id = scanf.next();
 				
-				String sql = "INSERT INTO userinfo(id, pw, name) VALUES('" + id + "', '" + pw + "', '" + name + "')";
-				System.out.println("sql = " + sql);
+				System.out.print("비밀번호 -> ");
+				String pw = scanf.next();
 				
-				// executeUpdate메서드가 return 해주는 것 -> 정수
-				// 정수를 return하는 이유는 쿼리를 실행해서 영향 받은 행을 알려주기 위해
-				int count = stmt.executeUpdate(sql);
-				if(count == 1) {
-					System.out.println("회원 가입 완료");
-				} else {
-					System.out.println("회원 가입 실패");
-				}
+				System.out.print("이름 -> ");
+				String name = scanf.next();
 				
+				Connection conn = null;
+				Statement stmt = null;
 				
-			} catch (ClassNotFoundException | SQLException e) {
-				e.printStackTrace();
-			} finally {
-				if(stmt != null) {
+				try {
+					Class.forName("org.mariadb.jdbc.Driver");
+					
+					conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
+				
+					stmt = conn.createStatement();
+					
+					String sql = "INSERT INTO userinfo(id, pw, name) VALUES('" + id + "', '" + pw + "', '" + name + "')";
+//					System.out.println("sql = " + sql);
+					
 					try {
-						stmt.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
+						// executeUpdate메서드가 return 해주는 것 -> 정수
+					// 정수를 return하는 이유는 쿼리를 실행해서 영향 받은 행을 알려주기 위해
+						int count = stmt.executeUpdate(sql);
+						if(count == 1) {
+							System.out.println("회원 가입 완료");
+						} else {
+							System.out.println("회원 가입 실패");
+						}
+					} catch(SQLIntegrityConstraintViolationException e) {
+						System.out.println("이미 사용중인 아이디입니다");
+					}
+					
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if(stmt != null) {
+						try {
+							stmt.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+					
+					if(conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 				
-				if(conn != null) {
-					try {
-						conn.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
+				break;
+			case 2:
+				System.out.println("<< 로그인 >>");
+				break;
+			case 3:
+				System.out.println("프로그램을 종료합니다");
+				isRunning = false;
+				break;
+			default :
+				System.out.println("번호를 잘못 입력하셨습니다");
+			} // end switch
 			
-			
-			break;
-		case 2:
-			System.out.println("<< 로그인 >>");
-			break;
-		default :
-			System.out.println("번호를 잘못 입력하셨습니다");
-		}
+		} // end while
+		
+		
 	}
 
 }
