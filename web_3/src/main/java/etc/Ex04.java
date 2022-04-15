@@ -402,6 +402,7 @@ public class Ex04 {
 					break;
 				case MenuNumber.DELETE:
 					System.out.println("<< 회원 탈퇴 >>");
+					delete();
 					break;
 				case MenuNumber.EXIT:
 					System.out.println("프로그램을 종료합니다");
