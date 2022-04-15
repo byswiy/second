@@ -2,6 +2,7 @@ package etc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
@@ -16,7 +17,9 @@ public class Ex04 {
 		System.out.println("<< 뫄뫄뫄 프로그램 >>");
 		System.out.println("1. 회원가입");
 		System.out.println("2. 로그인");
-		System.out.println("3. 프로그램 종료");
+		System.out.println("3. 회원 정보 수정");
+		System.out.println("4. 회원 탈퇴");
+		System.out.println("5. 프로그램 종료");
 		System.out.print("메뉴 선택 -> ");
 		
 		int menu = scanf.nextInt();
@@ -116,6 +119,103 @@ public class Ex04 {
 			System.out.println("이미 사용중인 아이디 입니다.");
 		}
 	}
+	
+	public static MemberInfo loginInput() {
+		Scanner scanf = new Scanner(System.in);
+		System.out.print("아이디 -> ");
+		String id = scanf.next();
+		
+		System.out.print("비밀번호 -> ");
+		String pw = scanf.next();
+		
+		MemberInfo memberInfo = new MemberInfo(id, pw, null);
+		
+		return memberInfo;
+	}
+	
+	public static boolean executeLoginQuery(MemberInfo memberInfo) {
+		Connection conn = null;
+		Statement stmt = null;
+		
+		boolean isLogin = false;
+		try {
+			Class.forName("org.mariadb.jdbc.Drivetr");
+			
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
+			
+			stmt = conn.createStatement();
+			
+			String sql = "SELECT * FROM userinfo WHERE id ='" + memberInfo.getId() +"' AND pw = '" + memberInfo.getPw() + "'";
+					
+			ResultSet rs = stmt.executeQuery(sql);
+		
+			isLogin = rs.next();
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return isLogin;
+	}
+	
+	public static void login() {
+		
+		// 1. 아이디, 비밀번호를 입력 받는 부분
+		MemberInfo memberInfo = loginInput();
+		// 2. 로그인 쿼리를 실행하고 결과를 받앙오는 부분
+		boolean isLogin = executeLoginQuery(memberInfo);
+		// 3. 결과를 출력하는 부분
+		if(isLogin) {
+			System.out.println("로그인 성공");
+		} else {
+			System.out.println("로그인 실패");
+		}
+	}
+	
+	public static void updateInput() {
+		MemberInfo memberInfo = loginInput();
+	}
+	
+	public static MemberInfo update() {
+		// 1. 회원 정보 수정을 하기 위한 아이디, 비밀번호 입력 받기
+		Scanner scanf = new Scanner(System.in);
+		System.out.print("아이디 -> ");
+		String id = scanf.next();
+		
+		System.out.print("비밀번호 -> ");
+		String pw = scanf.next();
+		
+		MemberInfo memberInfo = new MemberInfo(id, pw, null);
+		
+		return memberInfo;
+		
+		// 2. 사용자가 입력한 아이디, 비밀번호를 사용해서 수정할 회원의 정보 찾기
+		
+		// 3. 찾은 회원의 정보 출력
+		
+		// 4. 수정할 이름 입력 받기
+		
+		// 5. 사용자가 입력한 이름으로 회원 정보 수정
+		
+		// 6. 수정 결과 출력
+	}
 
 	public static void main(String[] args) {
 		
@@ -132,11 +232,21 @@ public class Ex04 {
 					break;
 				case MenuNumber.LOGIN:
 					System.out.println("<< 로그인 >>");
+					
+					login();
+					break;
+				case MenuNumber.UPDATE:
+					System.out.println("<< 회원 정보 수정 >>");
+					update();
+					break;
+				case MenuNumber.DELETE:
+					System.out.println("<< 회원 탈퇴 >>");
 					break;
 				case MenuNumber.EXIT:
 					System.out.println("프로그램을 종료합니다");
 					isRunning = false;
 					break;
+				
 				default :
 					System.out.println("번호를 잘못 입력하셨습니다");
 			} // end switch
