@@ -50,6 +50,7 @@ public class Ex04 {
 		Connection conn = null;
 		Statement stmt = null;
 		
+		// 회원 가입의 성공 여부
 		boolean isJoin = false;
 		
 		try {
@@ -63,6 +64,7 @@ public class Ex04 {
 			
 			int count = stmt.executeUpdate(sql);
 			
+			// 회원 가입 성공 시 isJoin을 true
 			if(count == 1) {
 				isJoin = true;
 			}
@@ -76,7 +78,6 @@ public class Ex04 {
 				try {
 					stmt.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} 
@@ -84,7 +85,6 @@ public class Ex04 {
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} // end try
 			} // end if
@@ -97,47 +97,14 @@ public class Ex04 {
 		// 1. 회원 정보 입력 받는 부분
 		MemberInfo memberInfo = joinInput();
 		
-		
-		
-		try {
 			// 2. 회원 가입 쿼리 실행 부분
+			boolean isJoin = executeJoinQuery(memberInfo);
 			
-			try {
-				// executeUpdate메서드가 return 해주는 것 -> 정수
-			// 정수를 return하는 이유는 쿼리를 실행해서 영향 받은 행을 알려주기 위해
-				
-				// 회원 가입 쿼리 실행 부분 종료
-				
-				// 3. 회원 가입 결과를 출력하는 부분
-				if(count == 1) {
-					System.out.println("회원 가입 완료");
-				} else {
-					System.out.println("회원 가입 실패");
-				}
-			} catch(SQLIntegrityConstraintViolationException e) {
-				System.out.println("이미 사용중인 아이디입니다");
+			if(isJoin) {
+				System.out.println("회원 가입 완료");
+			} else {
+				System.out.println("회원 가입 실패");
 			}
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if(stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			if(conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-				// 회원 가입 결과를 출력하는 부분 종료
-			}
-		}
 	}
 
 	public static void main(String[] args) {
