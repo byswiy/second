@@ -304,9 +304,78 @@ public class Ex04 {
 				System.out.println("이름을 수정하지 못 했습니다");
 			}
 		}
+	}
+	
+	public static boolean executeDeleteQuery(MemberInfo memberInfo) {
+		Connection conn = null;
+		Statement stmt = null;
 		
+		boolean isDelete = false;
 		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
 		
+			stmt = conn.createStatement();
+			
+			String sql = "DELETE FROM userinfo WHERE id = '" + memberInfo.getId() + "'";
+			
+			int count = stmt.executeUpdate(sql);
+			
+			if(count == 1) {
+				isDelete = true;
+			} else {
+				isDelete = false;
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return isDelete;
+	}
+	
+	public static void delete() {
+		Scanner scanf = new Scanner(System.in);
+		// 1. 회원 탈퇴 하기 위한 아이디, 비밀번호 입력 받기
+		MemberInfo memberInfo = loginInput();
+		
+		// 2. 사용자가 입력한 아이디, 비밀번호를 사용해서 탈퇴할 회원의 정보 찾기
+		boolean isLogin = executeLoginQuery(memberInfo); 
+		if(isLogin) {
+			System.out.println("정말 탈퇴하시겠습니까? ( y / n )");
+			char answer = scanf.next().charAt(0);
+			
+			if(answer == 'y') {
+				boolean idDelete = executeDeleteQuery(memberInfo);
+				
+				if(idDelete) {
+					System.out.println("성공적으로 탈퇴되었습니다");
+				} else {
+					System.out.println("문제가 생겼습니다 잠시 후 다시 시도하세요");
+				}
+			}
+		}
+		// 3. 정말 탈퇴할 것인지 묻기
+		
+		// 4. 정말 탈퇴한다면 탈퇴(회원 정보 삭제) 처리
 	}
 
 	public static void main(String[] args) {
