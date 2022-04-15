@@ -45,7 +45,7 @@ public class Ex04 {
 		return memberInfo;
 	}	
 	
-	public static boolean executeJoinQuery(MemberInfo memberInfo) {
+	public static boolean executeJoinQuery(MemberInfo memberInfo) throws SQLIntegrityConstraintViolationException{
 		// DB를 사용할 때 제일 중요한 점 : 우리가 원하는 동작을 다 했다면 반드시 close()로 DB와 프로그램의 연결을 끊어줘야한다
 		Connection conn = null;
 		Statement stmt = null;
@@ -97,14 +97,19 @@ public class Ex04 {
 		// 1. 회원 정보 입력 받는 부분
 		MemberInfo memberInfo = joinInput();
 		
+		try {
 			// 2. 회원 가입 쿼리 실행 부분
 			boolean isJoin = executeJoinQuery(memberInfo);
-			
+				
+			// 3. 회원 가입 결과를 출력하는 부분
 			if(isJoin) {
 				System.out.println("회원 가입 완료");
 			} else {
 				System.out.println("회원 가입 실패");
 			}
+		} catch(SQLIntegrityConstraintViolationException e) {
+			System.out.println("이미 사용중인 아이디 입니다.");
+		}
 	}
 
 	public static void main(String[] args) {
