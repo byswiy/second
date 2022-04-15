@@ -139,7 +139,7 @@ public class Ex04 {
 		
 		boolean isLogin = false;
 		try {
-			Class.forName("org.mariadb.jdbc.Drivetr");
+			Class.forName("org.mariadb.jdbc.Driver");
 			
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
 			
@@ -189,32 +189,124 @@ public class Ex04 {
 		}
 	}
 	
-	public static void updateInput() {
-		MemberInfo memberInfo = loginInput();
+	public static MemberInfo executeUpdateQuery(MemberInfo memberInfo) {
+		Connection conn = null;
+		Statement stmt = null;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
+			
+			stmt = conn.createStatement();
+			
+			String sql = "SELECT * FROM userinfo WHERE id ='" + memberInfo.getId() +"' AND pw = '" + memberInfo.getPw() + "'";
+					
+			ResultSet rs = stmt.executeQuery(sql);
+		
+			if(rs.next()) {
+				String name = rs.getString("name");
+				memberInfo.setName(name);
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return memberInfo;
 	}
 	
-	public static MemberInfo update() {
+	public static boolean executeNameUpdateQuery(String newName, String id) {
+		Connection conn = null;
+		Statement stmt = null;
+		
+		boolean isUpdate = false;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
+		
+			stmt = conn.createStatement();
+			
+			String sql = "UPDATE userinfo SET name = '" + newName + "' WHERE id = '" + id + "'";
+			
+			int count = stmt.executeUpdate(sql);
+			
+			if(count == 1) {
+				isUpdate = true;
+			} else {
+				isUpdate = false;
+			}
+			
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return isUpdate;
+	}
+	
+	public static void update() {
 		// 1. 회원 정보 수정을 하기 위한 아이디, 비밀번호 입력 받기
-		Scanner scanf = new Scanner(System.in);
-		System.out.print("아이디 -> ");
-		String id = scanf.next();
-		
-		System.out.print("비밀번호 -> ");
-		String pw = scanf.next();
-		
-		MemberInfo memberInfo = new MemberInfo(id, pw, null);
-		
-		return memberInfo;
-		
+		MemberInfo memberInfo = loginInput();
 		// 2. 사용자가 입력한 아이디, 비밀번호를 사용해서 수정할 회원의 정보 찾기
+		memberInfo = executeUpdateQuery(memberInfo);
+		if(memberInfo.getName() == null) {
+			System.out.println("존재하지 않는 계정입니다.");
+		} else {
+			// 3. 찾은 회원의 정보 출력
+			System.out.println("회원 이름 => " + memberInfo.getName());
+			// 4. 수정할 이름 입력 받기
+			Scanner scanf = new Scanner(System.in);
+			
+			System.out.print("수정할 이름을 입력하세요 -> ");
+			String newName = scanf.next();
+					
+			// 5. 사용자가 입력한 이름으로 회원 정보 수정
+			boolean isUpdate = executeNameUpdateQuery(newName, memberInfo.getId());
+			
+			// 6. 수정 결과 출력
+			if(isUpdate) {
+				System.out.println("이름을 수정 했습니다");
+			} else {
+				System.out.println("이름을 수정하지 못 했습니다");
+			}
+		}
 		
-		// 3. 찾은 회원의 정보 출력
 		
-		// 4. 수정할 이름 입력 받기
 		
-		// 5. 사용자가 입력한 이름으로 회원 정보 수정
-		
-		// 6. 수정 결과 출력
 	}
 
 	public static void main(String[] args) {
