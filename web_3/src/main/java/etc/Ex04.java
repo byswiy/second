@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Ex04 {
-	
 
 	public static void main(String[] args) {
 		Scanner scanf = new Scanner(System.in);
@@ -25,7 +24,7 @@ public class Ex04 {
 			int menu = scanf.nextInt();
 			
 			switch(menu) {
-			case 1:
+			case MenuNumber.join:
 				System.out.println("<< 회원가입 >>");
 				
 				System.out.print("아이디 -> ");
@@ -84,10 +83,10 @@ public class Ex04 {
 				}
 				
 				break;
-			case 2:
+			case MenuNumber.login:
 				System.out.println("<< 로그인 >>");
 				break;
-			case 3:
+			case MenuNumber.exit:
 				System.out.println("프로그램을 종료합니다");
 				isRunning = false;
 				break;
