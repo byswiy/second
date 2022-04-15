@@ -71,6 +71,8 @@ public class Ex04 {
 			
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch(SQLIntegrityConstraintViolationException e) {
+			throw new SQLIntegrityConstraintViolationException();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
