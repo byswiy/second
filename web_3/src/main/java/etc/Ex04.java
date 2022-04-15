@@ -7,6 +7,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import vo.MemberInfo;
+
 public class Ex04 {
 	public static int inputMenuNumber() {
 		Scanner scanf = new Scanner(System.in);
@@ -22,8 +24,8 @@ public class Ex04 {
 		return menu;
 	}
 	
-	// 메서드는 한 번에 하나의 동작(역할)만 하는게 제일 좋음
-	public static void join() {
+	// 회원 가입 시 회원 정보를 입력 받는 메서드
+	public static MemberInfo joinInput() {
 		Scanner scanf = new Scanner(System.in);
 		
 		System.out.println("<< 회원가입 >>");
@@ -37,10 +39,21 @@ public class Ex04 {
 		System.out.print("이름 -> ");
 		String name = scanf.next();
 		
+		MemberInfo memberInfo = new MemberInfo(id, pw, name);
+		
+		return memberInfo;
+	}	
+	
+	// 메서드는 한 번에 하나의 동작(역할)만 하는게 제일 좋음
+	public static void join() {
+		// 1. 회원 정보 입력 받는 부분
+		MemberInfo memberInfo = joinInput();
+		
 		Connection conn = null;
 		Statement stmt = null;
 		
 		try {
+			// 2. 회원 가입 쿼리 실행 부분
 			Class.forName("org.mariadb.jdbc.Driver");
 			
 			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
@@ -54,6 +67,9 @@ public class Ex04 {
 				// executeUpdate메서드가 return 해주는 것 -> 정수
 			// 정수를 return하는 이유는 쿼리를 실행해서 영향 받은 행을 알려주기 위해
 				int count = stmt.executeUpdate(sql);
+				// 회원 가입 쿼리 실행 부분 종료
+				
+				// 3. 회원 가입 결과를 출력하는 부분
 				if(count == 1) {
 					System.out.println("회원 가입 완료");
 				} else {
@@ -80,6 +96,7 @@ public class Ex04 {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+				// 회원 가입 결과를 출력하는 부분 종료
 			}
 		}
 	}
