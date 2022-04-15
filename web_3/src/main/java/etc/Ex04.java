@@ -39,34 +39,73 @@ public class Ex04 {
 		System.out.print("이름 -> ");
 		String name = scanf.next();
 		
+		// MemberInfo 클래스를 사용해서 회원 정보를 받아옴
 		MemberInfo memberInfo = new MemberInfo(id, pw, name);
 		
 		return memberInfo;
 	}	
+	
+	public static boolean executeJoinQuery(MemberInfo memberInfo) {
+		// DB를 사용할 때 제일 중요한 점 : 우리가 원하는 동작을 다 했다면 반드시 close()로 DB와 프로그램의 연결을 끊어줘야한다
+		Connection conn = null;
+		Statement stmt = null;
+		
+		boolean isJoin = false;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
+			
+			stmt = conn.createStatement();
+			
+			String sql = "INSERT INTO userinfo(id, pw, name) VALUES('" + memberInfo.getId() + "', '" + memberInfo.getPw() + "', '" + memberInfo.getName() + "')";
+			
+			int count = stmt.executeUpdate(sql);
+			
+			if(count == 1) {
+				isJoin = true;
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} 
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // end try
+			} // end if
+		} // end try
+		return isJoin;
+	} // end method
 	
 	// 메서드는 한 번에 하나의 동작(역할)만 하는게 제일 좋음
 	public static void join() {
 		// 1. 회원 정보 입력 받는 부분
 		MemberInfo memberInfo = joinInput();
 		
-		Connection conn = null;
-		Statement stmt = null;
+		
 		
 		try {
 			// 2. 회원 가입 쿼리 실행 부분
-			Class.forName("org.mariadb.jdbc.Driver");
-			
-			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
-		
-			stmt = conn.createStatement();
-			
-			String sql = "INSERT INTO userinfo(id, pw, name) VALUES('" + id + "', '" + pw + "', '" + name + "')";
-//			System.out.println("sql = " + sql);
 			
 			try {
 				// executeUpdate메서드가 return 해주는 것 -> 정수
 			// 정수를 return하는 이유는 쿼리를 실행해서 영향 받은 행을 알려주기 위해
-				int count = stmt.executeUpdate(sql);
+				
 				// 회원 가입 쿼리 실행 부분 종료
 				
 				// 3. 회원 가입 결과를 출력하는 부분
