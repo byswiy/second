@@ -2,13 +2,14 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import etc.Database;
 import vo.MemberInfo;
 
 public class UserInfo {
+	
 	public boolean insertUserInfo(MemberInfo newMemberInfo) {
 		Database db = new Database();
 		
@@ -42,5 +43,39 @@ public class UserInfo {
 			db.closePstmt(pstmt);
 			db.closeConn(conn);
 		}
+	}
+	
+	public static MemberInfo selectUserInfo(MemberInfo memberInfo) {
+		Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM userinfo WHERE id= ? AND pw = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberInfo.getId());
+			pstmt.setString(2, memberInfo.getPw()); 
+			
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				// 조회한 회원 정보를 매개변수로 받은 객체에 담는다
+				String name = rs.getString("name");
+				memberInfo.setName(name);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConn(conn);
+		}
+		return memberInfo;
 	}
 }
