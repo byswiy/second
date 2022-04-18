@@ -1,6 +1,9 @@
 package member;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +37,16 @@ public class Join extends HttpServlet {
 		
 		
 		// 회원 정보를 Table에 저장
+		Database db = new Database();
+		// 1. 커넥션 연결
+		Connection conn = db.getConnection();
+		// 2. stmt 생성
+		try {
+			Statement stmt = conn.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		Database.memberInfoTable.add(memberList);
 		
 		// 회원 가입 성공 페이지로 이동
