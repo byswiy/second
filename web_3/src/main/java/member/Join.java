@@ -51,6 +51,7 @@ public class Join extends HttpServlet {
 			
 			if(count == 1) {
 				// 회원 가입 성공
+				response.sendRedirect("/web3/member/joinSuccess.html");
 			} else {
 				// 회원 가입 실패
 			}
@@ -64,10 +65,8 @@ public class Join extends HttpServlet {
 			db.closeConn(conn);
 		}
 		
-		Database.memberInfoTable.add(memberList);
+//		Database.memberInfoTable.add(memberList);
 		
-		// 회원 가입 성공 페이지로 이동
-		response.sendRedirect("/web3/member/joinSuccess.html");
 	}
 
 }
