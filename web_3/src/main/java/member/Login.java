@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.UserInfo;
 import etc.Database;
 import vo.MemberInfo;
 
@@ -20,26 +21,33 @@ public class Login extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
+		MemberInfo memberInfo = new MemberInfo(id, pw);
+		
+		UserInfo userInfo = new UserInfo();
+		
+		memberInfo = userInfo.selectUserInfo(memberInfo);
 		
 		// 로그인 처리
-		boolean success = false;
+		boolean success = memberInfo.getName() == null ? false : true;
 		
-		String loginUserName = null;
+		
 	
 		// DB에서 아이디아 비밀번호를 사용해서 일치하는 사용자를 찾는다
-		for(MemberInfo nthMemberInfo : Database.memberInfoTable) {
-			String nthid = nthMemberInfo.getId();
-			String nthpw = nthMemberInfo.getPw();
-			
-			success = nthid.equals(id) && nthpw.equals(pw);
-			
-			if(success) {
-				loginUserName = nthMemberInfo.getName();
-				break;
-			}
-		}
+//		for(MemberInfo nthMemberInfo : Database.memberInfoTable) {
+//			String nthid = nthMemberInfo.getId();
+//			String nthpw = nthMemberInfo.getPw();
+//			
+//			success = nthid.equals(id) && nthpw.equals(pw);
+//			
+//			if(success) {
+//				loginUserName = nthMemberInfo.getName();
+//				break;
+//			}
+//		}
 		if(success) {
 			// 찾았으면 로그인 성공
+			String loginUserName = memberInfo.getName();
+			
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogin", true);
 			// 관리자가 로그인했다면 userLevel=admin
@@ -51,6 +59,7 @@ public class Login extends HttpServlet {
 				session.setAttribute("userLevel", "user");
 			}
 			
+			// loginUserName 변수를 지우고 자리에 memberInfo.getName()를 넣어도 된다
 			session.setAttribute("loginUserName", loginUserName);
 			
 			response.setContentType("text/plain;charset=UTF-8");
