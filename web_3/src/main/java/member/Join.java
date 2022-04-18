@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.UserInfo;
 import etc.Database;
 import vo.MemberInfo;
 
@@ -32,40 +33,48 @@ public class Join extends HttpServlet {
 		//						   꼭 필요한 문자 확인
 		
 		// 회원 정보를 생성
-		MemberInfo memberList =  new MemberInfo(id, pw, name);
+		MemberInfo memberInfo =  new MemberInfo(id, pw, name);
 		
 		// 아이디 중복 여부 확인
+		UserInfo userInfoDao = new UserInfo();
 		
+		boolean isJoin = userInfoDao.insertUserInfo(memberInfo);
 		
-		// 회원 정보를 Table에 저장
-		Database db = new Database();
-		// 1. 커넥션 연결
-		Connection conn = db.getConnection();
-		Statement stmt = null;
-		// 2. stmt 생성
-		try {
-			stmt = conn.createStatement();
+		if(isJoin) {
+			response.sendRedirect("/web3/member/joinSuccess.html");
+		} else {
 			
-			String sql = "INSERT INTO userinfo(id. pw, name) VALUES ('" + id + "', '" + pw + "', '" + name + "')";
-			
-			int count = stmt.executeUpdate(sql);
-			
-			if(count == 1) {
-				// 회원 가입 성공
-				response.sendRedirect("/web3/member/joinSuccess.html");
-			} else {
-				// 회원 가입 실패
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			// conn에 null이 들어갔다면 예외가 발생할 수 있기 때문
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} finally {
-			db.closeStmt(stmt);
-			db.closeConn(conn);
 		}
+		
+//		// 회원 정보를 Table에 저장
+//		Database db = new Database();
+//		// 1. 커넥션 연결
+//		Connection conn = db.getConnection();
+//		Statement stmt = null;
+//		// 2. stmt 생성
+//		try {
+//			stmt = conn.createStatement();
+//			
+//			String sql = "INSERT INTO userinfo(id. pw, name) VALUES ('" + id + "', '" + pw + "', '" + name + "')";
+//			
+//			int count = stmt.executeUpdate(sql);
+//			
+//			if(count == 1) {
+//				// 회원 가입 성공
+//				response.sendRedirect("/web3/member/joinSuccess.html");
+//			} else {
+//				// 회원 가입 실패
+//				
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			// conn에 null이 들어갔다면 예외가 발생할 수 있기 때문
+//		} catch (NullPointerException e) {
+//			e.printStackTrace();
+//		} finally {
+//			db.closeStmt(stmt);
+//			db.closeConn(conn);
+//		}
 		
 //		Database.memberInfoTable.add(memberList);
 		
