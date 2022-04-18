@@ -18,6 +18,7 @@ import vo.MemberInfo;
 public class Join extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/plain;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		// 클라이언트가 전달한 파라미터에서 회원 정보를 꺼냄
 		String id = request.getParameter("id");
@@ -54,6 +55,7 @@ public class Join extends HttpServlet {
 				response.sendRedirect("/web3/member/joinSuccess.html");
 			} else {
 				// 회원 가입 실패
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
