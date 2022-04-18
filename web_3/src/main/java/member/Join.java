@@ -18,7 +18,7 @@ import vo.MemberInfo;
 @WebServlet("/member/join")
 public class Join extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/plain;charset=UTF-8");
+//		response.setContentType("text/plain;charset=UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		
 		// 클라이언트가 전달한 파라미터에서 회원 정보를 꺼냄

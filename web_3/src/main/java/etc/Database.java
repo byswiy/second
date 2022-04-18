@@ -2,8 +2,8 @@ package etc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class Database {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			conn = DriverManager.getConnection("jdbc:mariadb://192.168.10.4:3306/shopdb/user=root&password=1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://192.168.10.4:3306/shopdb?user=root&password=1234");
 			
 			
 		} catch (ClassNotFoundException | SQLException e) {
@@ -30,10 +30,20 @@ public class Database {
 		return conn;
 	}
 	
-	public void closeStmt(Statement stmt) {
-		if(stmt != null) {
+//	public void closeStmt(Statement stmt) {
+//		if(stmt != null) {
+//			try {
+//				stmt.close();
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+	
+	public void closePstmt(PreparedStatement pstmt) {
+		if(pstmt != null) {
 			try {
-				stmt.close();
+				pstmt.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
