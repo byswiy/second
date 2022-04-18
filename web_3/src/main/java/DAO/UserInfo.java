@@ -66,7 +66,6 @@ public class UserInfo {
 				// 조회한 회원 정보를 매개변수로 받은 객체에 담는다
 				String name = rs.getString("name");
 				memberInfo.setName(name);
-				
 			}
 			
 		} catch (SQLException e) {
