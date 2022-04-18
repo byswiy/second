@@ -40,11 +40,28 @@ public class Join extends HttpServlet {
 		Database db = new Database();
 		// 1. 커넥션 연결
 		Connection conn = db.getConnection();
+		Statement stmt = null;
 		// 2. stmt 생성
 		try {
-			Statement stmt = conn.createStatement();
+			stmt = conn.createStatement();
+			
+			String sql = "INSERT INTO userinfo(id. pw, name) VALUES ('" + id + "', '" + pw + "', '" + name + "')";
+			
+			int count = stmt.executeUpdate(sql);
+			
+			if(count == 1) {
+				// 회원 가입 성공
+			} else {
+				// 회원 가입 실패
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			// conn에 null이 들어갔다면 예외가 발생할 수 있기 때문
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		} finally {
+			db.closeStmt(stmt);
+			db.closeConn(conn);
 		}
 		
 		Database.memberInfoTable.add(memberList);
