@@ -9,3 +9,4 @@
 <%-- 서블릿을 호출하는 URL은 SERVLET으로 시작 --%>
 <%-- 페이지를 이동하는 URL은 PAGE로 시작 --%>
 <c:set var="SERVLET_JOIN_URL" value="web3/member/join"/>
+<c:set var="PAGE_MAIN_URL" value="web3/main/index.jsp"/>

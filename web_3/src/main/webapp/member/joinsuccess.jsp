@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../includes/URLConfig.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +15,7 @@
 
 		<img alt="" src="/web3/images/joinSuccess_left.png">
 
-		<a href="/web3/main">첫 페이지로 이동</a>
+		<a href="${PAGE_MAIN_URL }">첫 페이지로 이동</a>
 		
 		<img alt="" src="/web3/images/joinSuccess_right.png">
 	</div>
