@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.UserInfoDao;
 import etc.Database;
+import etc.UrlConfig;
 import vo.MemberInfo;
 
 @WebServlet("/member/join")
@@ -41,7 +42,7 @@ public class Join extends HttpServlet {
 		boolean isJoin = userInfoDao.insertUserInfo(memberInfo);
 		
 		if(isJoin) {
-			response.sendRedirect("/web3/member/joinSuccess.html");
+			response.sendRedirect(UrlConfig.PAGE_JOIN_SUCCESS_URL);
 		} else {
 			
 		}
