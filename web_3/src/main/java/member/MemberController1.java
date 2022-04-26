@@ -11,13 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DAO.UserInfo;
-import etc.Database;
 import vo.MemberInfo;
 
-@WebServlet("/member/login")
-public class Login extends HttpServlet {
+@WebServlet("/MemberController1")
+public class MemberController1 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// logout 처리
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 클라이언트가 보낸 파라미터를 꺼냄
+		// login 처리
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
@@ -77,5 +82,6 @@ public class Login extends HttpServlet {
 		
 		
 	}
+	}
 
-}
+
