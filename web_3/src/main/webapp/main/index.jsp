@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../includes/URLConfig.jsp" %>
+
+<%-- LOGOUT_URL = ${LOGOUT_URL } --%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,8 @@
 <link rel="stylesheet" href="/web3/css/header.css">
 <link rel="stylesheet" href="/web3/css/footer.css">
 <link rel="stylesheet" href="/web3/css/main_index.css">
-<script src="jquery-3.6.0.min.js"></script>
+
+<script src="/web3/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -17,6 +22,7 @@
 			<c:if test="${sessionScope.isLogin eq true }">
 				${sessionScope.loginUserName }님 환영합니다
 			</c:if>
+			
 			<!-- 로그인을 하지 않은 상태라면 로그인 form을 보여준다 -->
 			<c:if test="${sessionScope.isLogin ne true }">
 				<form action="/web3/member/login" method="POST">
@@ -37,9 +43,9 @@
 			<c:if test="${sessionScope.isLogin eq true }">
 				<button type="button">로그아웃</button>
 				
-				<script type="text/javascript">
+				<script>
 					$("#join_area > button").on("click", function() {
-						location.href="/web3/member/controller1"
+						location.href = "${LOGOUT_URL}"
 					});
 				</script>
 			</c:if>
@@ -47,7 +53,7 @@
 			<c:if test="${sessionScope.isLogin ne true }">
 				<button type="button">회원가입</button>
 				
-				<script type="text/javascript">
+				<script>
 					$("#join_area > button").on("click", function() {
 						location.href="/web3/member/join.html"
 					});
@@ -86,7 +92,6 @@
 	
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
 	
-	<script src="/web3/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		$("#join_area > button").on("click", function() {
 			location.href="/web3/member/join.html"
