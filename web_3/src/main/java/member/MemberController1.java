@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import service.MemberService;
 import vo.MemberInfo;
 
-@WebServlet("/MemberController1")
+@WebServlet("/member/controller1")
 public class MemberController1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

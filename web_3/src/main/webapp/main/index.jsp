@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,21 @@
 <link rel="stylesheet" href="/web3/css/main_index.css">
 </head>
 <body>
+	${sessionScope }
 	<header>
 		<div id="login_area">
-			<form action="/web3/member/login" method="POST">
-				<input type="text" name="id" placeholder="아이디">
-				<input type="password" name="pw" placeholder="비밀번호">
-				<button type="button">로그인</button>
-			</form>
+			<!-- 로그인을 한 상태라면 (loginUserName)님 환영합니다! 를 출력 -->
+			<c:if test="${sessionScope.isLogin eq true }">
+				${sessionScope.loginUserName }님 환여압니다
+			</c:if>
+			<!-- 로그인을 하지 않은 상태라면 로그인 form을 보여준다 -->
+			<c:if test="${sessionScope.isLogin ne true }">
+				<form action="/web3/member/login" method="POST">
+					<input type="text" name="id" placeholder="아이디">
+					<input type="password" name="pw" placeholder="비밀번호">
+					<button type="button">로그인</button>
+				</form>
+			</c:if>
 		</div>
 		<div id="join_area">
 			<button type="button">회원가입</button>
@@ -67,7 +76,7 @@
 			let pw = $pw.val();
 			
 			$.ajax({
-				url: "/web3/member/login",
+				url: "/web3/member/controller1",
 				type: "POST",
 				data: "id=" + id + "&pw=" + pw,
 				dataType: "text",
