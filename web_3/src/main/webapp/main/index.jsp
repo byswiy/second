@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../includes/URLConfig.jsp" %>
 
-<%-- LOGOUT_URL = ${LOGOUT_URL } --%>
+<%-- LOGOUT_URL = ${JOIN_URL } --%>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
 			
 			<!-- 로그인을 하지 않은 상태라면 로그인 form을 보여준다 -->
 			<c:if test="${sessionScope.isLogin ne true }">
-				<form action="/web3/member/login" method="POST">
+				<form action="${LOGIN_URL }" method="POST">
 					<input type="text" name="id" placeholder="아이디">
 					<input type="password" name="pw" placeholder="비밀번호">
 					<button type="button">로그인</button>
@@ -55,7 +55,7 @@
 				
 				<script>
 					$("#join_area > button").on("click", function() {
-						location.href="/web3/member/join.html"
+						location.href="${JOIN_URL}"
 					});
 				</script>
 			</c:if>
@@ -93,9 +93,9 @@
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
 	
 	<script type="text/javascript">
-		$("#join_area > button").on("click", function() {
-			location.href="/web3/member/join.html"
-		});
+// 		$("#join_area > button").on("click", function() {
+// 			location.href="/web3/member/join.html"
+// 		});
 		
 // 		$("#login_area > input[type=submit]").on("click", function(e) {
 // 			e.preventDefault();
@@ -108,7 +108,7 @@
 			let pw = $pw.val();
 			
 			$.ajax({
-				url: "/web3/member/controller1",
+				url: "${LOGIN_URL }",
 				type: "POST",
 				data: "id=" + id + "&pw=" + pw,
 				dataType: "text",
@@ -125,7 +125,7 @@
 					// 위에서 join.html로 이동하는 click 이벤트를 삭제시켜주는 이벤트 처리를 해준다
 					$("#join_area > button").off("click");
 					$("#join_area > button").on("click", function() {
-						location.href="/web3/member/controller1"
+						location.href="${LOGOUT_URL}"
 					});
 					}
 					
@@ -146,7 +146,7 @@
 		});
 		
 		$.ajax ({
-			url:"/web3/notice/list",
+			url:"${GET_NOTICE_LIST_URL}",
 			type:"GET",
 			dataType:"json",
 			success: function(noticeInfo) {
