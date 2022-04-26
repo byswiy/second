@@ -44,7 +44,7 @@
 					<button type="button" id="admin_notice_write">공지사항 쓰기</button>
 					<script type="text/javascript">
 						$("#admin_notice_write").on("click", function() {
-							location.href = "web3/notice/form"
+							location.href = "${SERVLET_NOTICE_FORM_URL}"
 						})
 					</script>
 				</c:if>
@@ -127,14 +127,21 @@
 						location.href="/web3/main";
 					} else {
 						$("#login_area").text(loginUserName + "님 환영합니다~!");
-					$("#join_area > button").text("로그아웃");
-					// #join_area > button 이 2개의 click 이벤트를 실행하고 있기 때문에
-					// 위에서 join.html로 이동하는 click 이벤트를 삭제시켜주는 이벤트 처리를 해준다
-					$("#join_area > button").off("click");
-					$("#join_area > button").on("click", function() {
-						location.href="${LOGOUT_URL}"
-					});
+						
+						$("#join_area"),prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")
+						$("#admin_notice_write").on("click", function() {
+							location.href = "${SERVLET_NOTICE_FORM_URL}"
+							});
+						
+						$("#join_area > button").text("로그아웃");
+						// #join_area > button 이 2개의 click 이벤트를 실행하고 있기 때문에
+						// 위에서 join.html로 이동하는 click 이벤트를 삭제시켜주는 이벤트 처리를 해준다
+						$("#join_area > button").off("click");
+						$("#join_area > button").on("click", function() {
+							location.href="${LOGOUT_URL}"
+						});
 					}
+				}
 					
 					
 				},

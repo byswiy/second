@@ -16,4 +16,4 @@
 
 <c:set var="PAGE_MAIN_URL" value="web3/main/index.jsp"/>
 
-<c:set var="" value="/web3/notice/form"/>
+<c:set var="SERVLET_NOTICE_FORM_URL" value="/web3/notice/form"/>
