@@ -20,16 +20,15 @@ public class MemberController1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// logout 처리
 		HttpSession session = request.getSession();
+		
 		session.removeAttribute("isLogin");
 		session.removeAttribute("loginUserName");
+		session.removeAttribute("loginUserLevel");
 		
 		// 모든 세션정보가 사라진다
 //		session.invalidate();
 		
-//		RequestDispatcher rd = request.getRequestDispatcher("/main");
-//		rd.forward(request, response);
-		
-		response.sendRedirect("/web3/main");
+		response.sendRedirect("/web3/main/index.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

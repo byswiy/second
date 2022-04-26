@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/web3/css/header.css">
 <link rel="stylesheet" href="/web3/css/footer.css">
 <link rel="stylesheet" href="/web3/css/main_index.css">
+<script src="jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<header>
@@ -38,7 +39,7 @@
 				
 				<script type="text/javascript">
 					$("#join_area > button").on("click", function() {
-						location.href="/web3/member/logout"
+						location.href="/web3/member/controller1"
 					});
 				</script>
 			</c:if>
@@ -119,7 +120,7 @@
 					// 위에서 join.html로 이동하는 click 이벤트를 삭제시켜주는 이벤트 처리를 해준다
 					$("#join_area > button").off("click");
 					$("#join_area > button").on("click", function() {
-						location.href="/web3/member/logout"
+						location.href="/web3/member/controller1"
 					});
 					}
 					
