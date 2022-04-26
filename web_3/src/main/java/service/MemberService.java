@@ -8,11 +8,8 @@ import vo.MemberInfo;
 
 public class MemberService {
 	
-	public boolean getLoginResult(HttpServletRequest request) {
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
+	public boolean getLoginResult(MemberInfo memberInfo) {
 		
-		MemberInfo memberInfo = new MemberInfo(id, pw);
 		
 		UserInfoDao userInfo = new UserInfoDao();
 	
