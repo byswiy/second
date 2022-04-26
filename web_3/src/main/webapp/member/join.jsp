@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../includes/URLConfig.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +13,7 @@
 	<div id="wrapper">
         <h3>회원가입</h3>
 
-		<form action="/web3/member/join" method="POST">
+		<form action="${SERVLET_JOIN_URL }" method="POST">
 			<div>
 				<label>아이디&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="id"></label>
 			</div>
