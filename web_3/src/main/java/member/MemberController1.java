@@ -42,7 +42,7 @@ public class MemberController1 extends HttpServlet {
 		MemberService service = new MemberService();
 		
 		// 로그인 성공 또는 실패 결과 
-		boolean success = service.getLoginResult(memberInfo);
+		boolean success = service.getLoginResult(request);
 	
 		// DB에서 아이디아 비밀번호를 사용해서 일치하는 사용자를 찾는다
 //		for(MemberInfo nthMemberInfo : Database.memberInfoTable) {
