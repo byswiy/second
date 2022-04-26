@@ -34,15 +34,10 @@ public class MemberController1 extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// login 처리
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		
-		MemberInfo memberInfo = new MemberInfo(id, pw);
-		
 		MemberService service = new MemberService();
 		
 		// 로그인 성공 또는 실패 결과 
-		boolean success = service.getLoginResult(request);
+		MemberInfo memberInfo = service.getLoginResult(request);
 	
 		// DB에서 아이디아 비밀번호를 사용해서 일치하는 사용자를 찾는다
 //		for(MemberInfo nthMemberInfo : Database.memberInfoTable) {
@@ -56,16 +51,17 @@ public class MemberController1 extends HttpServlet {
 //				break;
 //			}
 //		}
-		if(success) {
+		if(memberInfo != null) {
 			// 찾았으면 로그인 성공
 			String loginUserName = memberInfo.getName();
+			String loginUserId = memberInfo.getId();
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("isLogin", true);
 			// 관리자가 로그인했다면 userLevel=admin
 			// 관리자가 아닌 사용자가 로그인했다면 userLevel=user
 			// 으로 상태정보를 기록해보세요
-			if(id.equals("admin")) {
+			if(loginUserId.equals("admin")) {
 				session.setAttribute("userLevel", "admin");
 			} else {
 				session.setAttribute("userLevel", "user");

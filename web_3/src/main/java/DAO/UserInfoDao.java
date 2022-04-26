@@ -45,7 +45,7 @@ public class UserInfoDao {
 		}
 	}
 	
-	public static MemberInfo selectUserInfo(MemberInfo memberInfo) {
+	public MemberInfo selectUserInfo(MemberInfo memberInfo) {
 		Database db = new Database();
 		
 		Connection conn = db.getConnection();
