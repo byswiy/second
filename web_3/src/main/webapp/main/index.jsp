@@ -10,12 +10,11 @@
 <link rel="stylesheet" href="/web3/css/main_index.css">
 </head>
 <body>
-	${sessionScope }
 	<header>
 		<div id="login_area">
 			<!-- 로그인을 한 상태라면 (loginUserName)님 환영합니다! 를 출력 -->
 			<c:if test="${sessionScope.isLogin eq true }">
-				${sessionScope.loginUserName }님 환여압니다
+				${sessionScope.loginUserName }님 환영합니다
 			</c:if>
 			<!-- 로그인을 하지 않은 상태라면 로그인 form을 보여준다 -->
 			<c:if test="${sessionScope.isLogin ne true }">
@@ -26,8 +25,35 @@
 				</form>
 			</c:if>
 		</div>
-		<div id="join_area">
-			<button type="button">회원가입</button>
+		
+		<c:set var="buttonText" value="회원가입"/>
+		<c:if test="${sessionScope.isLogin eq true }">
+			<c:set var="buttonText" value="로그아웃"/>
+		</c:if>
+		
+		<div id="join_area">	
+		
+			<c:if test="${sessionScope.isLogin eq true }">
+				<button type="button">로그아웃</button>
+				
+				<script type="text/javascript">
+					$("#join_area > button").on("click", function() {
+						location.href="/web3/member/logout"
+					});
+				</script>
+			</c:if>
+			
+			<c:if test="${sessionScope.isLogin ne true }">
+				<button type="button">회원가입</button>
+				
+				<script type="text/javascript">
+					$("#join_area > button").on("click", function() {
+						location.href="/web3/member/join.html"
+					});
+				</script>
+			</c:if>
+		
+			<%-- <button type="button">${buttonText }</button> --%>
 		</div>
 	</header>
 	
@@ -62,7 +88,7 @@
 	<script src="/web3/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		$("#join_area > button").on("click", function() {
-			location.href="/web3/member/login"
+			location.href="/web3/member/join.html"
 		});
 		
 // 		$("#login_area > input[type=submit]").on("click", function(e) {
