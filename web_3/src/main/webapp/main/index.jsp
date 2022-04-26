@@ -39,8 +39,15 @@
 		</c:if>
 		
 		<div id="join_area">	
-		
 			<c:if test="${sessionScope.isLogin eq true }">
+				<c:if test="${sessionScope.userLevel eq 'admin' }">
+					<button type="button" id="admin_notice_write">공지사항 쓰기</button>
+					<script type="text/javascript">
+						$("#admin_notice_write").on("click", function() {
+							location.href = "web3/notice/form"
+						})
+					</script>
+				</c:if>
 				<button type="button">로그아웃</button>
 				
 				<script>
