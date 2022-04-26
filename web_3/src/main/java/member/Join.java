@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DAO.UserInfo;
+import DAO.UserInfoDao;
 import etc.Database;
 import vo.MemberInfo;
 
@@ -36,7 +36,7 @@ public class Join extends HttpServlet {
 		MemberInfo memberInfo =  new MemberInfo(id, pw, name);
 		
 		// 아이디 중복 여부 확인
-		UserInfo userInfoDao = new UserInfo();
+		UserInfoDao userInfoDao = new UserInfoDao();
 		
 		boolean isJoin = userInfoDao.insertUserInfo(memberInfo);
 		

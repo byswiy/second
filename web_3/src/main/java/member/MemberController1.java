@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.UserInfo;
+import DAO.UserInfoDao;
 import vo.MemberInfo;
 
 @WebServlet("/MemberController1")
@@ -19,6 +19,17 @@ public class MemberController1 extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// logout 처리
+		HttpSession session = request.getSession();
+		session.removeAttribute("isLogin");
+		session.removeAttribute("loginUserName");
+		
+		// 모든 세션정보가 사라진다
+//		session.invalidate();
+		
+//		RequestDispatcher rd = request.getRequestDispatcher("/main");
+//		rd.forward(request, response);
+		
+		response.sendRedirect("/web3/main");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,7 +39,7 @@ public class MemberController1 extends HttpServlet {
 		
 		MemberInfo memberInfo = new MemberInfo(id, pw);
 		
-		UserInfo userInfo = new UserInfo();
+		UserInfoDao userInfo = new UserInfoDao();
 		
 		memberInfo = userInfo.selectUserInfo(memberInfo);
 		
@@ -78,10 +89,7 @@ public class MemberController1 extends HttpServlet {
 		} else {
 			response.setStatus(400);
 		}
-		
-		
-		
 	}
-	}
+}
 
 

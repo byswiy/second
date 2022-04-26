@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import etc.Database;
 import vo.MemberInfo;
 
-public class UserInfo {
+public class UserInfoDao {
 	
 	public boolean insertUserInfo(MemberInfo newMemberInfo) {
 		Database db = new Database();
