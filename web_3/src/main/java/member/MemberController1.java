@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import DAO.UserInfoDao;
+import service.MemberService;
 import vo.MemberInfo;
 
 @WebServlet("/MemberController1")
@@ -39,14 +39,10 @@ public class MemberController1 extends HttpServlet {
 		
 		MemberInfo memberInfo = new MemberInfo(id, pw);
 		
-		UserInfoDao userInfo = new UserInfoDao();
+		MemberService service = new MemberService();
 		
-		memberInfo = userInfo.selectUserInfo(memberInfo);
-		
-		// 로그인 처리
-		boolean success = memberInfo.getName() == null ? false : true;
-		
-		
+		// 로그인 성공 또는 실패 결과 
+		boolean success = service.getLoginResult(memberInfo);
 	
 		// DB에서 아이디아 비밀번호를 사용해서 일치하는 사용자를 찾는다
 //		for(MemberInfo nthMemberInfo : Database.memberInfoTable) {
