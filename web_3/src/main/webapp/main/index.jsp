@@ -118,7 +118,7 @@
 				url: "${LOGIN_URL }",
 				type: "POST",
 				data: "id=" + id + "&pw=" + pw,
-				dataType: "text",
+				dataType: "json",
 				success: function(loginUserName) {
 					// 로그인 성공
 					// 로그인 한 사용자의 이름 출력
@@ -126,12 +126,8 @@
 					if(loginUserName == "관리자") {
 						location.href="/web3/main";
 					} else {
-						$("#login_area").text(loginUserName + "님 환영합니다~!");
+						$("#login_area").text(result.loginUserName + "님 환영합니다~!");
 						
-						$("#join_area"),prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")
-						$("#admin_notice_write").on("click", function() {
-							location.href = "${SERVLET_NOTICE_FORM_URL}"
-							});
 						
 						$("#join_area > button").text("로그아웃");
 						// #join_area > button 이 2개의 click 이벤트를 실행하고 있기 때문에
@@ -141,9 +137,13 @@
 							location.href="${LOGOUT_URL}"
 						});
 					}
-				}
 					
-					
+					if(result.loginUserName == "admin") {
+						$("#join_area"),prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")
+						$("#admin_notice_write").on("click", function() {
+							location.href = "${SERVLET_NOTICE_FORM_URL}"
+						});
+					}
 				},
 				error: function() {
 					// 로그인 실패

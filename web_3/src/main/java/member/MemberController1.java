@@ -54,26 +54,31 @@ public class MemberController1 extends HttpServlet {
 			// 찾았으면 로그인 성공
 			String loginUserName = memberInfo.getName();
 			String loginUserId = memberInfo.getId();
+			String userLevel;
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("isLogin", true);
 			// 관리자가 로그인했다면 userLevel=admin
 			// 관리자가 아닌 사용자가 로그인했다면 userLevel=user
 			// 으로 상태정보를 기록해보세요
 			if(loginUserId.equals("admin")) {
-				session.setAttribute("userLevel", "admin");
+				userLevel = "admin";
 			} else {
-				session.setAttribute("userLevel", "user");
+				userLevel = "user";
 			}
 			
-			// loginUserName 변수를 지우고 자리에 memberInfo.getName()를 넣어도 된다
-			session.setAttribute("loginUserName", loginUserName);
+			HttpSession session = request.getSession();
 			
-			response.setContentType("text/plain;charset=UTF-8");
+			session.setAttribute("userLevel", userLevel);
+			session.setAttribute("isLogin", true);
+			session.setAttribute("loginUserName", loginUserName);
+			// loginUserName 변수를 지우고 자리에 memberInfo.getName()를 넣어도 된다
+			
+			response.setContentType("application;charset=UTF-8");
 			
 			PrintWriter out = response.getWriter();
 			
-			out.print(loginUserName);
+			String result = "(\"loginUserName\": \"" + loginUserName + "\", \"userLevel\": \"" + userLevel + "\"}";
+			
+			out.print(result);
 			
 			out.close();
 			

@@ -3,7 +3,7 @@
 
 <c:set var="LOGOUT_URL" value="/web3/member/controller1" />
 
-<c:set var="LOGIN_URL" value="/web3/member/controlle1" /> 
+<c:set var="LOGIN_URL" value="/web3/member/controller1" /> 
 
 <c:set var="JOIN_URL" value="/web3/member/join.jsp" /> 
 
