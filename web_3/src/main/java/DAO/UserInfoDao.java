@@ -20,9 +20,6 @@ public class UserInfoDao {
 		
 		
 		try {
-//			stmt = conn.createStatement();
-			
-//			String sql = "INSERT INTO userinfo(id. pw, name) VALUES ('" + newMemberInfo.getId() + "', '" + newMemberInfo.getPw() + "', '" + newMemberInfo.getName() + "')";
 			String sql = "INSERT INTO userinfo(`id`, `pw`, `name`) VALUES (?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
@@ -30,8 +27,6 @@ public class UserInfoDao {
 			pstmt.setString(2, newMemberInfo.getPw());
 			pstmt.setString(3, newMemberInfo.getName());
 			
-//			System.out.println(pstmt);
-		
 			int count = pstmt.executeUpdate();	
 			
 			return count == 1;

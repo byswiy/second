@@ -56,6 +56,7 @@
 	
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
 
+	
 	<script>
 		// 공지사항을 목록을 불러와서 보여줄 ajax 
 		$.ajax ({
@@ -78,7 +79,6 @@
 	                
 	                $("#list").append(noticeTag);
 				}
-				
 			},
 			error: function(response) {
 				console.log("에러 발생")

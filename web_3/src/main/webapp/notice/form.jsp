@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../includes/URLConfig.jsp" %>
-
 <!-- 권한이 있는 사용자만 이 페이지를 이용할 수 있어야한다 -->
-<%-- 로그인을 하지 않아서 세션에 userLevel 없을 경우 userLevel변수에는 아무것도 저장되지 않는다 --%>
-<%-- 정확하게는 빈 문자열이 저장된다 --%>
 <c:set var="userLevel" value="${sessionScope['userLevel'] }" />
 
 <c:if test="${userLevel ne 'admin' }">
 	<c:redirect url="/main"></c:redirect>
 </c:if>
-
 
 <!DOCTYPE html>
 <html>
@@ -25,9 +21,9 @@
 	<%@ include file="../includes/header.jsp" %>
 	
 	<div id="wrapper">
-		<h2>공지사항</h2>
+        <h2>공지사항</h2>
 
-		<form action="${Servlet_NOTICE_WRITE }" method="POST">
+		<form action="${SERVLET_NOTICE_WRITE }" method="POST">
 			<div id="title_wrapper">
 				<label>제목&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="title"></label>
 			</div>

@@ -42,9 +42,10 @@ public class Join extends HttpServlet {
 		boolean isJoin = userInfoDao.insertUserInfo(memberInfo);
 		
 		if(isJoin) {
+			// 회원 가입 성공 처리
 			response.sendRedirect(UrlConfig.PAGE_JOIN_SUCCESS_URL);
 		} else {
-			
+			// 회원 가입 실패 처리
 		}
 		
 //		// 회원 정보를 Table에 저장
