@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="../includes/URLConfig.jsp" %>
 
 <!-- 권한이 있는 사용자만 이 페이지를 이용할 수 있어야한다 -->
 <%-- 로그인을 하지 않아서 세션에 userLevel 없을 경우 userLevel변수에는 아무것도 저장되지 않는다 --%>
@@ -26,7 +27,7 @@
 	<div id="wrapper">
 		<h2>공지사항</h2>
 
-		<form action="/web3/notice" method="POST">
+		<form action="${Servlet_NOTICE_WRITE }" method="POST">
 			<div id="title_wrapper">
 				<label>제목&nbsp;&nbsp;&nbsp;&nbsp;: <input type="text" name="title"></label>
 			</div>
