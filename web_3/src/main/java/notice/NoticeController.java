@@ -31,17 +31,8 @@ public class NoticeController extends HttpServlet {
 		// 1. 공지사항의 목록을 불러와 JSON으로 구성한다
 		// 2. JSON을 전달한다
 		
-		
-		// 공지사항의 목록을 불러온다
-		NoticeInfoDao dao = new NoticeInfoDao();
-		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
-		
-		String data = "{\"noticeList\":[";
-		for(NoticeInfo noticeInfo : noticeInfoList) {
-			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
-		}
-		data = data.substring(0, data.length()-1);
-		data = data + "]}";
+		NoticeService service = new NoticeService();
+		String data = service.loadNoticeInfoListToJson();
 		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter output = response.getWriter();

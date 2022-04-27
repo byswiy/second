@@ -16,13 +16,18 @@ public class NoticeService {
 		return result;
 	}
 	
-	public void getContent(NoticeInfo noticeInfo) {
+	public String loadNoticeInfoListToJson() {
+		// 공지사항의 목록을 불러온다
 		NoticeInfoDao dao = new NoticeInfoDao();
 		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
 		
-		NoticeInfo nthContent = new NoticeInfo(title, contents);
+		String data = "{\"noticeList\":[";
+		for(NoticeInfo noticeInfo : noticeInfoList) {
+			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
+		}
+		data = data.substring(0, data.length()-1);
+		data = data + "]}";
 		
-		
-		
+		return data;
 	}
 }
