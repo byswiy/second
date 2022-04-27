@@ -27,27 +27,44 @@ public class NoticeController extends HttpServlet {
 		// 1. 공지사항의 목록을 불러온다
 		// 2. 불러온 목록을 JSON으로 구성해서 전달한다
 		
+		// 컨트롤러의 구조를 다르게 생각해서 
+		// 1. 공지사항의 목록을 불러와 JSON으로 구성한다
+		// 2. JSON을 전달한다
+		
+		
 		// 공지사항의 목록을 불러온다
 		NoticeInfoDao dao = new NoticeInfoDao();
 		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
 		
-		// 불러온 목록을 json으로 구성해서 전달한다
-		response.setContentType("application/json;charset=UTF-8");
-	
-		PrintWriter output = response.getWriter();
-	
-		output.print("{\"noticeList\":[");
-	
-		String data = "";
+		String data = "{\"noticeList\":[";
 		for(NoticeInfo noticeInfo : noticeInfoList) {
 			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
 		}
-	
 		data = data.substring(0, data.length()-1);
-		output.print(data);
-		output.print("]}");
+		data = data + "]}";
 		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter output = response.getWriter();
+		
+		output.print(data);
 		output.close();
+		// 불러온 목록을 json으로 구성해서 전달한다
+//		response.setContentType("application/json;charset=UTF-8");
+//	
+//		PrintWriter output = response.getWriter();
+//	
+//		output.print("{\"noticeList\":[");
+//	
+//		String data = "";
+//		for(NoticeInfo noticeInfo : noticeInfoList) {
+//			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
+//		}
+//	
+//		data = data.substring(0, data.length()-1);
+//		output.print(data);
+//		output.print("]}");
+//		
+//		output.close();
 		
 	}
 	

@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import DAO.NoticeInfoDao;
 import etc.Database;
 import vo.NoticeInfo;
@@ -12,5 +14,15 @@ public class NoticeService {
 		boolean result = dao.insertNoticeInfo(newNoticeInfo);
 		
 		return result;
+	}
+	
+	public void getContent(NoticeInfo noticeInfo) {
+		NoticeInfoDao dao = new NoticeInfoDao();
+		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
+		
+		NoticeInfo nthContent = new NoticeInfo(title, contents);
+		
+		
+		
 	}
 }
