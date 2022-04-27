@@ -1,6 +1,7 @@
 package service;
 
 import DAO.NoticeInfoDao;
+import etc.Database;
 import vo.NoticeInfo;
 
 public class NoticeService {
@@ -11,5 +12,12 @@ public class NoticeService {
 		boolean result = dao.insertNoticeInfo(newNoticeInfo);
 		
 		return result;
+	}
+	
+	public void getNotice(NoticeInfo newnoticeInfo) {
+		String data = "";
+		for(NoticeInfo noticeInfo : Database.noticeInfoTable) {
+			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
+		}
 	}
 }

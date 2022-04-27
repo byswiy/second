@@ -18,4 +18,4 @@
 
 <c:set var="PAGE_NOTICE_FORM_URL" value="/web3/notice/form.jsp"/>
 
-<c:set var="Servlet_NOTICE_WRITE" value="/web3/notice/write" />
+<c:set var="Servlet_NOTICE_WRITE" value="/web3/notice/controller" />

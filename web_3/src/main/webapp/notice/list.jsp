@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,18 +9,7 @@
 <link rel="stylesheet" href="/web3/css/notice_list.css">
 </head>
 <body>
-	<header>
-		<div id="login_area">
-			<form action="/servlet/member/login" method="POST">
-				<input type="text" name="id" placeholder="아이디">
-				<input type="password" name="pw" placeholder="비밀번호">
-				<input type="submit" value="로그인">
-			</form>
-		</div>
-		<div id="join_area">
-			<button type="button">회원가입</button>
-		</div>
-	</header>
+	<%@ include file="../includes/header.jsp" %>
 	
 	<div id="wrapper">
         <h2>공지사항</h2>
@@ -66,49 +56,6 @@
 
 	<script src="/web3/js/jquery-3.6.0.min.js"></script>
 	<script>
-		// header에서 사용할 ajax
-		$.ajax({
-			url:"/web3/notice/header",
-			type:"GET",
-			// getParameter가 없기 때문에 data는 필요없음
-			dataType:"json",
-			success: function(loginUserInfo) {
-				
-				// json 데이터 꺼내쓰기
-				if(!loginUserInfo.isLogin) {
-					// 로그인 영역 보여주기
-					// 페이지가 시작할 때 로그인 영역이 보이기 때문에 작성할 코드는 없다
-				} else {
-					// 로그인 영역 대신 사용자의 이름을 보여준다
-					$("#login_area").text(loginUserInfo.loginUserName + "님 환영합니다~!");
-					$("#join_area").html("<button type=\"button\" id=\"logout\">로그아웃</button>");
-					$("#join_area #logout").on("click", function() {
-						location.href="/web3/member/logout"
-					});
-					
-					// 관리자고 로그인을 했을 경우
-					if(loginUserInfo.userLevel == "admin") {
-						// 로그아웃 버튼 옆에 공지사항 작성 버튼을 보여준다
-						$("#join_area").prepend("<button type=\"button\" id=\"admin_notice_write\">공지사항 쓰기</button>");
-						
-						$("#join_area #admin_notice_write").on("click", function() {
-							location.href="/web3/notice/form";
-						});
-					}
-						
-					
-				}
-				
-				
-			},
-			error: function(responseInfo) {
-				
-				console.log("에러 발생!")
-				
-				console.log(responseInfo);
-			}
-		})
-		
 		// 공지사항을 목록을 불러와서 보여줄 ajax 
 		$.ajax ({
 			url:"/web3/notice/list",
