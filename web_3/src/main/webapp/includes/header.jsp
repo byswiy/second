@@ -17,10 +17,10 @@
 		</c:if>
 	</div>
 	
-	<c:set var="buttonText" value="회원가입"/>
-	<c:if test="${sessionScope.isLogin eq true }">
-		<c:set var="buttonText" value="로그아웃"/>
-	</c:if>
+<%-- 	<c:set var="buttonText" value="회원가입"/> --%>
+<%-- 	<c:if test="${sessionScope.isLogin eq true }"> --%>
+<%-- 		<c:set var="buttonText" value="로그아웃"/> --%>
+<%-- 	</c:if> --%>
 	
 	<div id="join_area">	
 		<c:if test="${sessionScope.isLogin eq true }">

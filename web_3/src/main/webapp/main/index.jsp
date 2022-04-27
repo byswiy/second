@@ -45,13 +45,7 @@
 	
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
 	
-	<script type="text/javascript">
-// 		$("#join_area > button").on("click", function() {
-// 			location.href="/web3/member/join.html"
-// 		});
-		
-// 		$("#login_area > input[type=submit]").on("click", function(e) {
-// 			e.preventDefault();
+	<script>
 		$("#login_area > form > button").on("click", function() {
 			
 			let $id = $("input[name=id]");
@@ -74,15 +68,15 @@
 // 					} else {
 // 						
 // 					}
-						$("#login_area").text(result.loginUserName + "님 환영합니다~!");
-						
-						$("#join_area > button").text("로그아웃");
+					$("#login_area").text(result.loginUserName + "님 환영합니다~!");
+					
+					$("#join_area > button").text("로그아웃");
 						// #join_area > button 이 2개의 click 이벤트를 실행하고 있기 때문에
 						// 위에서 join.html로 이동하는 click 이벤트를 삭제시켜주는 이벤트 처리를 해준다
-						$("#join_area > button").off("click");
-						$("#join_area > button").on("click", function() {
-							location.href="${LOGOUT_URL}"
-						});
+					$("#join_area > button").off("click");
+					$("#join_area > button").on("click", function() {
+						location.href="${LOGOUT_URL}"
+					});
 					
 					if(result.userLevel == "admin") {
 						$("#join_area").prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")

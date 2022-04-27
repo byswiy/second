@@ -1,13 +1,14 @@
 package notice;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import etc.Database;
+import service.NoticeService;
 import vo.NoticeInfo;
 
 @WebServlet("/NoticeController")
@@ -27,10 +28,18 @@ public class NoticeController extends HttpServlet {
 			NoticeInfo noticeInfo = new NoticeInfo(title, contents);
 			
 			// 공지사항 테이블에 저장
-			Database.noticeInfoTable.add(noticeInfo);
+			NoticeService service = new NoticeService();
 			
-			// 공지사항 목록 페이지로 이동
-			response.sendRedirect("/web3/notice/list.html");
+			boolean result = service.addNotice(noticeInfo);
+			
+			if(result) {
+				// 공지사항 목록 페이지로 이동
+				response.sendRedirect("/web3/notice/list.html");
+			} else {
+				
+			}
+			
+			
 	}
 
 }
