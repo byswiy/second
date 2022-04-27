@@ -49,7 +49,7 @@ public class NoticeInfoDao {
 		List<NoticeInfo> noticeInfoList = new ArrayList<>();
 		
 		try {
-			String sql = "SELECT * FROM noticeinfo";
+			String sql = "SELECT * FROM noticeinfo ORDER BY id DESC";
 			
 			pstmt = conn.prepareStatement(sql);
 		

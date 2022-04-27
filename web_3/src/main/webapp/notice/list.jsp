@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../includes/URLConfig.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <link rel="stylesheet" href="/web3/css/header.css">
 <link rel="stylesheet" href="/web3/css/footer.css">
 <link rel="stylesheet" href="/web3/css/notice_list.css">
+<script src="/web3/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 	<%@ include file="../includes/header.jsp" %>
@@ -54,11 +56,10 @@
 	
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
 
-	<script src="/web3/js/jquery-3.6.0.min.js"></script>
 	<script>
 		// 공지사항을 목록을 불러와서 보여줄 ajax 
 		$.ajax ({
-			url:"/web3/notice/list",
+			url:"${SERVLET_NOTICE_LIST}",
 			type:"GET",
 			dataType:"json",
 			success: function(noticeInfo) {
