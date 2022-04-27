@@ -1,21 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 권한이 있는 사용자만 이 페이지를 이용할 수 있어야한다 -->
+<c:set var="userLevel" value=${sessionScope['userLevel'] }/>
+<c:if test="${userLevel ne 'admin' }">
+<c:redirect url="/main"></c:redirect>
+</c:if>
 <%
-try {
-	String userLevel = (String) session.getAttribute("userLevel");
+// try {
 	
-	if(userLevel.equals("admin")) {
-		// 권한이 있는 사용자(관리자)가 접근했을 때만 공지사항 쓰기 페이지가 보이도록 하고
-	} else {
-		// 권한이 없는 사용자(로그인을 하지 않았거나 일반사용자 로그인)가 접근했을 때는 메인 페이지가 보이도록 하기
-		response.sendRedirect("/web3/main");
-	}
-	
-} catch(NullPointerException e) {
-	// 로그인을 하지않은 사용자가 접근했을 때 메인 페이지가 보이도록 함
-	response.sendRedirect("/web3/main");
-}
+// } catch(NullPointerException e) {
+// 	// 로그인을 하지않은 사용자가 접근했을 때 메인 페이지가 보이도록 함
+// 	response.sendRedirect("/web3/main");
+// }
 %>
 
 <!DOCTYPE html>
@@ -28,6 +25,7 @@ try {
 <link rel="stylesheet" href="/web3/css/notice_form.css">
 </head>
 <body>
+	<h1>관리자 권한이 있움!</h1>
 	<header>
 		<div id="login_area">
 			<form action="/web3/member/login" method="POST">
@@ -42,7 +40,8 @@ try {
 	</header>
 	
 	<div id="wrapper">
-        <h2>공지사항</h2>
+		<c:if test="${sessionScope.userLevel eq 'admin }">
+			<h2>공지사항</h2>
 
 		<form action="/web3/notice" method="POST">
 			<div id="title_wrapper">
@@ -61,6 +60,9 @@ try {
 	            <button type="submit">공지사항 작성</button>
 	        </div>
         </form>
+		</c:if>
+	
+        
 	</div>
 	
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
