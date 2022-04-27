@@ -2,12 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 권한이 있는 사용자만 이 페이지를 이용할 수 있어야한다 -->
-${sessionScope }
-<hr>
+<%-- 로그인을 하지 않아서 세션에 userLevel 없을 경우 userLevel변수에는 아무것도 저장되지 않는다 --%>
+<%-- 정확하게는 빈 문자열이 저장된다 --%>
+<c:set var="userLevel" value="${sessionScope['userLevel'] }" />
 
-<c:set var="userLevel" value=${sessionScope['userLevel'] }/>
-
-userLevel = ${userLevel }
+<c:if test="${userLevel ne 'admin' }">
+	<c:redirect url="/main"></c:redirect>
+</c:if>
 
 
 <!DOCTYPE html>
@@ -35,8 +36,7 @@ userLevel = ${userLevel }
 	</header>
 	
 	<div id="wrapper">
-		<c:if test="${sessionScope.userLevel eq 'admin }">
-			<h2>공지사항</h2>
+		<h2>공지사항</h2>
 
 		<form action="/web3/notice" method="POST">
 			<div id="title_wrapper">
@@ -55,9 +55,6 @@ userLevel = ${userLevel }
 	            <button type="submit">공지사항 작성</button>
 	        </div>
         </form>
-		</c:if>
-	
-        
 	</div>
 	
 	<footer>메가스터디 IT 아카데미 웹개발 취업반 Servlet 프로젝트</footer>
