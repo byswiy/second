@@ -7,7 +7,7 @@
 
 <c:set var="JOIN_URL" value="/web3/member/join.jsp" /> 
 
-<c:set var="GET_NOTICE_LIST_URL" value="/web3/notice/list" /> 
+<c:set var="GET_NOTICE_LIST_URL" value="${SERVLET_NOTICE_WRITE }" /> 
 
 
 <%-- 서블릿을 호출하는 URL은 SERVLET으로 시작 --%>

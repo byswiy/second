@@ -22,7 +22,7 @@ public class Database {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
-			conn = DriverManager.getConnection("jdbc:mariadb://192.168.10.4:3306/shopdb?user=root&password=1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/shopdb?user=root&password=1234");
 			
 			
 		} catch (ClassNotFoundException | SQLException e) {
