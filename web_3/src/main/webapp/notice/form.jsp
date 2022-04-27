@@ -2,18 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 권한이 있는 사용자만 이 페이지를 이용할 수 있어야한다 -->
+${sessionScope }
+<hr>
+
 <c:set var="userLevel" value=${sessionScope['userLevel'] }/>
-<c:if test="${userLevel ne 'admin' }">
-<c:redirect url="/main"></c:redirect>
-</c:if>
-<%
-// try {
-	
-// } catch(NullPointerException e) {
-// 	// 로그인을 하지않은 사용자가 접근했을 때 메인 페이지가 보이도록 함
-// 	response.sendRedirect("/web3/main");
-// }
-%>
+
+userLevel = ${userLevel }
+
 
 <!DOCTYPE html>
 <html>
