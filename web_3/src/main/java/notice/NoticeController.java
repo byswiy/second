@@ -2,6 +2,8 @@ package notice;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.NoticeInfoDao;
 import etc.Database;
 import etc.UrlConfig;
 import service.NoticeService;
@@ -19,6 +22,12 @@ public class NoticeController extends HttpServlet {
 	// 공지사항 목록 전달
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지사항의 목록을 불러와 저장
+		
+		// 공지사항의 목록을 불러온다
+		NoticeInfoDao dao = new NoticeInfoDao();
+		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
+		
+		// 불러온 목록을 json으로 구성해서 전달한다
 		response.setContentType("application/json;charset=UTF-8");
 	
 		PrintWriter output = response.getWriter();
@@ -26,7 +35,7 @@ public class NoticeController extends HttpServlet {
 		output.print("{\"noticeList\":[");
 	
 		String data = "";
-		for(NoticeInfo noticeInfo : Database.noticeInfoTable) {
+		for(NoticeInfo noticeInfo : noticeInfoList) {
 			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
 		}
 	

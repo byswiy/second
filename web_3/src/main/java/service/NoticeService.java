@@ -13,11 +13,4 @@ public class NoticeService {
 		
 		return result;
 	}
-	
-	public void getNotice(NoticeInfo newnoticeInfo) {
-		String data = "";
-		for(NoticeInfo noticeInfo : Database.noticeInfoTable) {
-			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
-		}
-	}
 }
