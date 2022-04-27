@@ -42,12 +42,14 @@
 			<c:if test="${sessionScope.isLogin eq true }">
 				<c:if test="${sessionScope.userLevel eq 'admin' }">
 					<button type="button" id="admin_notice_write">공지사항 쓰기</button>
-					<script type="text/javascript">
+					
+					<script>
 						$("#admin_notice_write").on("click", function() {
 							location.href = "${SERVLET_NOTICE_FORM_URL}"
 						})
 					</script>
 				</c:if>
+				
 				<button type="button">로그아웃</button>
 				
 				<script>
@@ -72,9 +74,9 @@
 	</header>
 	
 	<main>
-			<div id="notice_title">
+		<div id="notice_title">
 			<h2>공지사항</h2>
-			<a href="/project2/notice/list.html"> [ 더보기 ] </a>
+			<a href="/web3/notice/list.html"> [ 더보기 ] </a>
 		</div>
 		
 <!-- 		<div id="notice_list">공지사항이 없습니다.</div> -->
@@ -119,15 +121,16 @@
 				type: "POST",
 				data: "id=" + id + "&pw=" + pw,
 				dataType: "json",
-				success: function(loginUserName) {
+				success: function(result) {
 					// 로그인 성공
 					// 로그인 한 사용자의 이름 출력
 // 					alert("로그인 성공! 사용자의 이름을 출력할 차례");
-					if(loginUserName == "관리자") {
-						location.href="/web3/main";
-					} else {
+// 					if(loginUserName == "관리자") {
+// 						location.href="/web3/main";
+// 					} else {
+// 						
+// 					}
 						$("#login_area").text(result.loginUserName + "님 환영합니다~!");
-						
 						
 						$("#join_area > button").text("로그아웃");
 						// #join_area > button 이 2개의 click 이벤트를 실행하고 있기 때문에
@@ -136,10 +139,9 @@
 						$("#join_area > button").on("click", function() {
 							location.href="${LOGOUT_URL}"
 						});
-					}
 					
-					if(result.loginUserName == "admin") {
-						$("#join_area"),prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")
+					if(result.userLevel == "admin") {
+						$("#join_area").prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")
 						$("#admin_notice_write").on("click", function() {
 							location.href = "${SERVLET_NOTICE_FORM_URL}"
 						});

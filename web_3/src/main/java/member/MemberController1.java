@@ -23,7 +23,7 @@ public class MemberController1 extends HttpServlet {
 		
 		session.removeAttribute("isLogin");
 		session.removeAttribute("loginUserName");
-		session.removeAttribute("loginUserLevel");
+		session.removeAttribute("userLevel");
 		
 		// 모든 세션정보가 사라진다
 //		session.invalidate();
@@ -67,12 +67,12 @@ public class MemberController1 extends HttpServlet {
 			
 			HttpSession session = request.getSession();
 			
-			session.setAttribute("userLevel", userLevel);
 			session.setAttribute("isLogin", true);
+			session.setAttribute("userLevel", userLevel);
 			session.setAttribute("loginUserName", loginUserName);
 			// loginUserName 변수를 지우고 자리에 memberInfo.getName()를 넣어도 된다
 			
-			response.setContentType("application;charset=UTF-8");
+			response.setContentType("application/json;charset=UTF-8");
 			
 			PrintWriter out = response.getWriter();
 			
