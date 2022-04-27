@@ -23,6 +23,10 @@ public class NoticeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지사항의 목록을 불러와 저장
 		
+		// 지금 우리 컨트롤러 구조는
+		// 1. 공지사항의 목록을 불러온다
+		// 2. 불러온 목록을 JSON으로 구성해서 전달한다
+		
 		// 공지사항의 목록을 불러온다
 		NoticeInfoDao dao = new NoticeInfoDao();
 		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
