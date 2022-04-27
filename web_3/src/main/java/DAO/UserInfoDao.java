@@ -30,12 +30,12 @@ public class UserInfoDao {
 			pstmt.setString(2, newMemberInfo.getPw());
 			pstmt.setString(3, newMemberInfo.getName());
 			
-			System.out.println(pstmt);
+//			System.out.println(pstmt);
 		
 			int count = pstmt.executeUpdate();	
 			
 			return count == 1;
-		} catch (SQLException | NullPointerException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
@@ -60,8 +60,6 @@ public class UserInfoDao {
 			pstmt.setString(2, memberInfo.getPw()); 
 			
 			rs = pstmt.executeQuery();
-			
-			
 			if(rs.next()) {
 				// 조회한 회원 정보를 매개변수로 받은 객체에 담는다
 				String name = rs.getString("name");
