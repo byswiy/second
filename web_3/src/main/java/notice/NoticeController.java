@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import etc.UrlConfig;
 import service.NoticeService;
 import vo.NoticeInfo;
 
@@ -24,6 +25,9 @@ public class NoticeController extends HttpServlet {
 			String title = request.getParameter("title");
 			String contents = request.getParameter("contents");
 			
+			// 클라이언트가 보낸 파라미터 값 검증
+			
+			
 			// 공지사항 데이터를 공지사항 정보로 뭉쳐주고
 			NoticeInfo noticeInfo = new NoticeInfo(title, contents);
 			
@@ -34,9 +38,9 @@ public class NoticeController extends HttpServlet {
 			
 			if(result) {
 				// 공지사항 목록 페이지로 이동
-				response.sendRedirect("/web3/notice/list.html");
+				response.sendRedirect(UrlConfig.PAGE_NOTICE_LIST_URL);
 			} else {
-				
+				// 공지사항 추가 실패와 관련된 처리
 			}
 			
 			
