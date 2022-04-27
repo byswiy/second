@@ -45,7 +45,7 @@
 					
 					<script>
 						$("#admin_notice_write").on("click", function() {
-							location.href = "${SERVLET_NOTICE_FORM_URL}"
+							location.href = "${PAGE_NOTICE_FORM_URL}"
 						})
 					</script>
 				</c:if>
@@ -143,7 +143,7 @@
 					if(result.userLevel == "admin") {
 						$("#join_area").prepend("<button type=\"button \" id=\"admin_notice_write\">공지사항 쓰기</button>")
 						$("#admin_notice_write").on("click", function() {
-							location.href = "${SERVLET_NOTICE_FORM_URL}"
+							location.href = "${PAGE_NOTICE_FORM_URL}"
 						});
 					}
 				},
