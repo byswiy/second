@@ -72,8 +72,15 @@
 
 		// js를 사용
 		let getParameters = location.search.subString(1, location.search.lenght);
-		getParamters.split("=");
-		let pageNumber = getParameters[1];
+		let pageNumber = 1;
+		
+		if(getParamter != '') {
+			getParameters = getParameters.split("=");
+			pageNumber = getParameters[1];
+		}
+		
+		
+		
 		// 공지사항을 목록을 불러와서 보여줄 ajax 
 		$.ajax ({
 			url:"${SERVLET_NOTICE_LIST}",
@@ -82,20 +89,25 @@
 			dataType:"json",
 			success: function(result) {
 				// 접근 방법 noticeList.noticeList[0]
+				// 공지사항의 개수와 페이지의 숫자를 조합해서 새로 생성
+				let noticeOrder = result.amount - ((pageNumber - 1) * 5);
+				
 				let noticeList = result.noticeList;
 
 				for(let i=0 i<noticeList.length; i++) {
 					let notice = noticeList[i];
 					
 					let noticeTag = "<div class=\"contents\">" +
-	                    				"<span class=\"order\">" + (noticeList.length - i)  + "</span>" +
+	                    				"<span class=\"order\">" + noticeOrder + "</span>" +
 	                     					"<a href=\"\">" +
 	                     					   "<span class=\"title\"> " + notice["title"] + "</span>" +
 	                    					"</a>" +
 	                				"</div>";
 	                
 	                $("#list").append(noticeTag);
-	               
+	                
+	                noticeOrder--;
+	               // 실행 결과로는 1페이지부터 30번으로 시작하는 목록 결과가 출력된다
 				}
 			},
 			error: function(response) {

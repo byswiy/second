@@ -19,8 +19,11 @@ public class NoticeService {
 		NoticeInfoDao dao = new NoticeInfoDao();
 		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo(pageNumber);
 		
+		int amount = dao.getAmountOfNotice();
+		
 		// 불러온 공지사항 목록을 JSON으로 구성한다.
-		String data = "{\"noticeList\":[";
+		String data = "{\"amount\" : " + amount + ",";
+		data += "\"noticeList\":[";
 		for (NoticeInfo noticeInfo : noticeInfoList) {
 			data = data + "{\"title\": \"" + noticeInfo.getTitle() + "\",\"contents\":\"" + noticeInfo.getContents() + "\"},";
 		}
