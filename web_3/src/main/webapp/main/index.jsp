@@ -84,10 +84,11 @@
 					let notice = noticeList[i];
 					
 					let noticeTag = "<div class=\"contents\">" +
-	                     					"<a href=\"\">" +
-	                     					   "<span class=\"title\"> " + notice["title"] + "</span>" +
-	                    					"</a>" +
-	                				"</div>";
+    									"<span class=\"order\">" + (i+1) + "</span>" +
+     										"<a href=\"\">" +
+     										   "<span class=\"title\"> " + notice["title"] + "<\span>" +
+    										"</a>" +
+									"</div>";
 	                
 	                $("#notice_list").append(noticeTag);
 				}

@@ -74,7 +74,8 @@
 	      
 	      if(getParameters != '') {
 	    	  getParameters = getParameters.split("=");
-	    	  let pageNumber = getParameters[1];
+	    	 
+	    	  pageNumber = getParameters[1];
 	      }
 	      
 	      
@@ -84,11 +85,11 @@
 	         type: "GET",
 	         data: "pageNumber=" + pageNumber,
 	         dataType: "json",
-	         success: function(result) {
+	         success: function(noticeInfo) {
 	            // 서버가 전달해준 공지사항 목록의 제목과 내용들을 console.log를 사용해 모두 출력하세요.
-	            let noticeOrder = result.amount - ((pageNumber - 1) * 5);
+	            let noticeOrder = noticeInfo.amount - ((pageNumber - 1) * 5);
 	            
-	            let noticeList = result.noticeList;
+	            let noticeList = noticeInfo.noticeList;
 	            
 	            for(let i=0; i<noticeList.length; i++) {
 	               let notice = noticeList[i];
