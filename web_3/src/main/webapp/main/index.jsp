@@ -84,7 +84,6 @@
 					let notice = noticeList[i];
 					
 					let noticeTag = "<div class=\"contents\">" +
-	                    				"<span class=\"order\">" + (noticeList.lenght - i) + "</span>" +
 	                     					"<a href=\"\">" +
 	                     					   "<span class=\"title\"> " + notice["title"] + "</span>" +
 	                    					"</a>" +
