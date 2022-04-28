@@ -81,7 +81,7 @@ public class NoticeInfoDao {
 		
 		int amount = 0;
 		
-		String sql = "SELECT COUNT(*) AS amountnoticeInfo";
+		String sql = "SELECT COUNT(*) AS amount FROM noticeInfo";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();

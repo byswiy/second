@@ -20,3 +20,5 @@
 <c:set var="SERVLET_NOTICE_LIST" value="${SERVLET_NOTICE_WRITE }" />
 
 <c:set var="PAGE_NOTICE_LIST" value="/web3/notice/list.jsp"/>
+
+<c:set var="SERVLET_NOTICE_AMOUNT" value="/web3/notice/controller2" />

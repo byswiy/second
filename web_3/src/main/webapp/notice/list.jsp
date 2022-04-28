@@ -42,10 +42,6 @@
 <!--                 </div> -->
             </div>
             <div class="pagination">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
             </div>
         </div>
 	</div>
@@ -57,13 +53,17 @@
 		// 공지사항 목록의 페이지네이션을 구성할 ajax
 		$.ajax ({
 			// 공지사항의 개수를 전달할 서블릿
-			url:"",
-			type:"",
-			data: "",
-			dataType: "",
-			success: function() {
+			url:"${SERVLET_NOTICE_AMOUNT}",
+			type:"get",
+			success: function(amount) {
 				// 전제 공지 사항의 개수를 받아와서 
 				// 전체 개수를 사용해서 적절히 페이지네이션을 출력하도록 한다
+				let roofCount = amount / 5;
+				for(let i=1; i<=roofCount; i++) {
+					// 페이지네이션 출력
+					$(".pagination").addpend("<span>" + i + "</span>");
+				}
+				console.log(amount);
 			},
 			error: function() {
 				
@@ -79,7 +79,7 @@
 			success: function(noticeInfo) {
 				// 접근 방법 noticeList.noticeList[0]
 				let noticeList = noticeInfo.noticeList;
-				
+				console.log(noticeList);
 				for(let i=0 i<noticeList.length; i++) {
 					let notice = noticeList[i];
 					

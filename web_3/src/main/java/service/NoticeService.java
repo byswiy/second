@@ -30,11 +30,4 @@ public class NoticeService {
 		return data;
 	}
 	
-	public int getAmountOfNotice(int pageNumber) {
-		NoticeInfoDao dao = new NoticeInfoDao();
-		
-		int amount = dao.getAmountOfNotice();
-		
-		return amount;
-	}
 }

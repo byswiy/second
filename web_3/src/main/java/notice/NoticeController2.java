@@ -9,17 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.NoticeInfoDao;
 import service.NoticeService;
 
-@WebServlet("/NoticeController2")
+@WebServlet("/notice/controller2")
 public class NoticeController2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 공지사항 전체 개수를 불러와 전달
-		NoticeService service = new NoticeService();
 		
-		int amout = service.getAmountOfNotice();
+		NoticeInfoDao dao = new NoticeInfoDao();
+		
+		int amount = dao.getAmountOfNotice();
 		
 		PrintWriter out = response.getWriter();
 		
