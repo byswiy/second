@@ -74,6 +74,7 @@
 		$.ajax ({
 			url:"${SERVLET_NOTICE_LIST}",
 			type:"GET",
+			data: "pageNumber=1",
 			dataType:"json",
 			success: function(noticeInfo) {
 				// 접근 방법 noticeList.noticeList[0]
@@ -83,9 +84,9 @@
 					let notice = noticeList[i];
 					
 					let noticeTag = "<div class=\"contents\">" +
-	                    				"<span class=\"order\">" + (i+1) + "</span>" +
+	                    				"<span class=\"order\">" + (noticeList.lenght - i) + "</span>" +
 	                     					"<a href=\"\">" +
-	                     					   "<span class=\"title\"> " + notice["title"] + "<\span>" +
+	                     					   "<span class=\"title\"> " + notice["title"] + "</span>" +
 	                    					"</a>" +
 	                				"</div>";
 	                

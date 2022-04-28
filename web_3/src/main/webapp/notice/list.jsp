@@ -54,11 +54,27 @@
 
 	
 	<script>
+		// 공지사항 목록의 페이지네이션을 구성할 ajax
+		$.ajax ({
+			// 공지사항의 개수를 전달할 서블릿
+			url:"",
+			type:"",
+			data: "",
+			dataType: "",
+			success: function() {
+				// 전제 공지 사항의 개수를 받아와서 
+				// 전체 개수를 사용해서 적절히 페이지네이션을 출력하도록 한다
+			},
+			error: function() {
+				
+			}
+		})
+	
 		// 공지사항을 목록을 불러와서 보여줄 ajax 
 		$.ajax ({
 			url:"${SERVLET_NOTICE_LIST}",
 			type:"GET",
-			data: "pageNumber=1"
+			data: "pageNumber=1",
 			dataType:"json",
 			success: function(noticeInfo) {
 				// 접근 방법 noticeList.noticeList[0]

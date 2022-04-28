@@ -71,4 +71,32 @@ public class NoticeInfoDao {
 		}
 		return noticeInfoList;
 	}
+	
+	public int getAmountOfNotice() {
+		Database db = new Database();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int amount = 0;
+		
+		String sql = "SELECT COUNT(*) AS amountnoticeInfo";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			// 공지사항의 갯수의 return 되는 결과가 무조건 있기 때문에
+			rs.next();
+			
+			amount = rs.getInt("amount");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			db.closeResultSet(rs);
+			db.closePstmt(pstmt);
+			db.closeConn(conn);
+		}
+		return amount;
+	}
 }
