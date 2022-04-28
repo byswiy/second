@@ -15,9 +15,9 @@ public class NoticeService {
 		return result;
 	}
 	
-	public String loadNoticeInfoListToJson() {
+	public String loadNoticeInfoListToJson(int pageNumber) {
 		NoticeInfoDao dao = new NoticeInfoDao();
-		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo();
+		List<NoticeInfo> noticeInfoList = dao.selectNoticeInfo(pageNumber);
 		
 		// 불러온 공지사항 목록을 JSON으로 구성한다.
 		String data = "{\"noticeList\":[";

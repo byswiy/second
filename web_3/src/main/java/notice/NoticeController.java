@@ -35,8 +35,11 @@ public class NoticeController extends HttpServlet {
 		// 2. JSON을 전달한다
 		
 		// 공지사항의 목록을 불러온다
+		int pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		
+		
 		NoticeService service = new NoticeService();
-		String data = service.loadNoticeInfoListToJson();
+		String data = service.loadNoticeInfoListToJson(pageNumber);
 		
 		// JSON을 전달한다
 		response.setContentType("application/json;charset=UTF-8");

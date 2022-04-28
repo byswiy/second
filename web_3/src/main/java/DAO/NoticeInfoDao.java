@@ -36,7 +36,7 @@ public class NoticeInfoDao {
 		}
 	}
 	
-	public List<NoticeInfo> selectNoticeInfo() {
+	public List<NoticeInfo> selectNoticeInfo(int pageNumber) {
 		Database db = new Database();
 
 		Connection conn = db.getConnection();
@@ -46,9 +46,10 @@ public class NoticeInfoDao {
 		List<NoticeInfo> noticeInfoList = new ArrayList<>();
 
 		try {
-			String sql = "SELECT * FROM noticeinfo ORDER BY id DESC";
+			String sql = "SELECT * FROM noticeinfo ORDER BY id DESC LIMIT ?, 5 ";
 
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,	(pageNumber - 1) * 5);
 
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
