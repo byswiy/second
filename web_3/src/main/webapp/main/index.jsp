@@ -18,7 +18,7 @@
 	<main>
 		<div id="notice_title">
 			<h2>공지사항</h2>
-			<a href="/web3/notice/list.html"> [ 더보기 ] </a>
+			<a href="${PAGE_NOTICE_LIST }"> [ 더보기 ] </a>
 		</div>
 		
 		<div id="notice_list">
@@ -72,7 +72,7 @@
 		});
 		
 		$.ajax ({
-			url:"${GET_NOTICE_LIST_URL}",
+			url:"${SERVLET_NOTICE_LIST}",
 			type:"GET",
 			dataType:"json",
 			success: function(noticeInfo) {
