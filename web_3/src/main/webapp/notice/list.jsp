@@ -61,7 +61,7 @@
 				let roofCount = amount / 5;
 				for(let i=1; i<=roofCount; i++) {
 					// 페이지네이션 출력
-					$(".pagination").addpend("<span>" + i + "</span>");
+					$(".pagination").addpend("<a href=\"${PAGE_NOTICE_LIST} ?pageNumber=" + i +"\"> <span>" + i + "</span> </a>");
 				}
 				console.log(amount);
 			},
@@ -69,17 +69,21 @@
 				
 			}
 		})
-	
+
+		// js를 사용
+		let getParameters = location.search.subString(1, location.search.lenght);
+		getParamters.split("=");
+		let pageNumber = getParameters[1];
 		// 공지사항을 목록을 불러와서 보여줄 ajax 
 		$.ajax ({
 			url:"${SERVLET_NOTICE_LIST}",
 			type:"GET",
-			data: "pageNumber=1",
+			data: "pageNumber=" + pageNumber,
 			dataType:"json",
-			success: function(noticeInfo) {
+			success: function(result) {
 				// 접근 방법 noticeList.noticeList[0]
-				let noticeList = noticeInfo.noticeList;
-				console.log(noticeList);
+				let noticeList = result.noticeList;
+
 				for(let i=0 i<noticeList.length; i++) {
 					let notice = noticeList[i];
 					
