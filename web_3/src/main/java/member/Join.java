@@ -43,7 +43,7 @@ public class Join extends HttpServlet {
 		
 		if(isJoin) {
 			// 회원 가입 성공 처리
-			response.sendRedirect(UrlConfig.PAGE_JOIN_SUCCESS_URL);
+			response.sendRedirect("/web3/member/joinSuccess.jsp");
 		} else {
 			// 회원 가입 실패 처리
 		}
