@@ -18,7 +18,7 @@
 	<main>
 		<div id="notice_title">
 			<h2>공지사항</h2>
-			<a href="/web3/notice/list.html"> [ 더보기 ] </a>
+			<a href="${PAGE_NOTICE_LIST }"> [ 더보기 ] </a>
 		</div>
 		
 		<div id="notice_list">
@@ -72,8 +72,9 @@
 		});
 		
 		$.ajax ({
-			url:"${GET_NOTICE_LIST_URL}",
+			url:"${SERVLET_NOTICE_LIST}",
 			type:"GET",
+			data: "pageNumber=1",
 			dataType:"json",
 			success: function(noticeInfo) {
 				// 접근 방법 noticeList.noticeList[0]
@@ -83,11 +84,11 @@
 					let notice = noticeList[i];
 					
 					let noticeTag = "<div class=\"contents\">" +
-	                    				"<span class=\"order\">" + (i+1) + "</span>" +
-	                     					"<a href=\"\">" +
-	                     					   "<span class=\"title\"> " + notice["title"] + "<\span>" +
-	                    					"</a>" +
-	                				"</div>";
+    									"<span class=\"order\">" + (i+1) + "</span>" +
+     										"<a href=\"\">" +
+     										   "<span class=\"title\"> " + notice["title"] + "<\span>" +
+    										"</a>" +
+									"</div>";
 	                
 	                $("#notice_list").append(noticeTag);
 				}

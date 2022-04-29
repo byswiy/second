@@ -42,15 +42,7 @@
 <!--                 </div> -->
             </div>
             <div class="pagination">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
             </div>
-        </div>
-
-        <div id="btn_wrapper">
-            <button type="button">공지사항 작성</button>
         </div>
 	</div>
 	
@@ -58,35 +50,72 @@
 
 	
 	<script>
-		// 공지사항을 목록을 불러와서 보여줄 ajax 
-		$.ajax ({
-			url:"${SERVLET_NOTICE_LIST}",
-			type:"GET",
-			dataType:"json",
-			success: function(noticeInfo) {
-				// 접근 방법 noticeList.noticeList[0]
-				let noticeList = noticeInfo.noticeList;
-				
-				for(let i=0; i<noticeList.length; i++) {
-					let notice = noticeList[i];
-					
-					let noticeTag = "<div class=\"contents\">" +
-	                    				"<span class=\"order\">" + (i+1) + "</span>" +
-	                     					"<a href=\"\">" +
-	                     					   "<span class=\"title\"> " + notice["title"] + "<\span>" +
-	                    					"</a>" +
-	                				"</div>";
-	                
-	                $("#list").append(noticeTag);
-				}
-			},
-			error: function(response) {
-				console.log("에러 발생")
-				console.log(response)
-			}
-		})
-		
-		// 공지사항 작성 버튼에서 사용할 ajax
+		// 공지사항 목록의 페이지네이션을 구성할 ajax
+	      // ajax가 공지사항의 전체 개수를 받아와서
+	      // 전체 개수를 사용해서 적절히 페이지네이션을 출력
+	      $.ajax({
+	         url: "${SERVLET_NOTICE_AMOUNT}",
+	         type: "GET",
+	         success: function(amount) {
+	            let roofCount = amount / 5;
+	            
+	            for(let i=1; i<=roofCount; i++) {
+	               // 페이지네이션 출력
+	               $(".pagination").append("<a href=\"${PAGE_NOTICE_LIST}?pageNumber=" + i +"\"> <span>" + i + "</span> </a>");
+	            }
+	         },
+	         error: function() {
+	            
+	         }
+	      });
+	      
+	      let getParameters = location.search.substr(1, location.search.length);
+	      let pageNumber = 1;
+	      
+	      if(getParameters != '') {
+	    	  getParameters = getParameters.split("=");
+	    	 
+	    	  pageNumber = getParameters[1];
+	      }
+	      
+	      
+	      // 공지사항 목록을 불러와 보여줄 ajax
+	      $.ajax({
+	         url: "${SERVLET_NOTICE_LIST}",
+	         type: "GET",
+	         data: "pageNumber=" + pageNumber,
+	         dataType: "json",
+	         success: function(noticeInfo) {
+	            // 서버가 전달해준 공지사항 목록의 제목과 내용들을 console.log를 사용해 모두 출력하세요.
+	            let noticeOrder = noticeInfo.amount - ((pageNumber - 1) * 5);
+	            
+	            let noticeList = noticeInfo.noticeList;
+	            
+	            for(let i=0; i<noticeList.length; i++) {
+	               let notice = noticeList[i];
+	               
+	               let noticeTag = "<div class=\"contents\">" +
+	                                   "<span class=\"order\">" + noticeOrder + "</span>" +
+	                                      "<a href=\"\">" +
+	                                          "<span class=\"title\"> " + notice["title"] + " </span>"
+	                                      "</a>" +
+	                               "</div>";
+	                               
+	                   $("#list").append(noticeTag);
+	                   
+	                   noticeOrder--;
+	            }
+	            
+	         },
+	         error: function(response) {
+	            
+	            console.log("에러 동작!");
+	            
+	            console.log(response);
+	            
+	         }
+	      });
+	      // 공지사항 작성 버튼에서 사용할 ajax
 	</script>
 	
 </body>

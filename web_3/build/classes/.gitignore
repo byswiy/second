@@ -1,2 +1,8 @@
 /etc/
 /member/
+<<<<<<< HEAD
+=======
+/notice/
+/service/
+/DAO/
+>>>>>>> origin/main
